@@ -19,7 +19,7 @@ func update_position(position: Vector2):
 	if multiplayer.get_peers().has(1):
 		rpc_id(1, "server_update_player_position", player_id, position)
 	else:
-		print("CLient not connected yet")
+		print("Client not connected yet")
 
 # yes, you need to have the function defined in both the client and the server
 # yes, i agree this is retarded
