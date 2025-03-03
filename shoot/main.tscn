@@ -1,9 +1,7 @@
-[gd_scene load_steps=43 format=3 uid="uid://butf0qqe4736v"]
+[gd_scene load_steps=40 format=3 uid="uid://butf0qqe4736v"]
 
 [ext_resource type="Script" path="res://Scripts/DebugScripts/main.gd" id="1_ufeyg"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="1_uuyhc"]
-[ext_resource type="Script" path="res://Scripts/crosshair.gd" id="2_7i3yh"]
-[ext_resource type="Texture2D" uid="uid://bl64rt2ugao4g" path="res://Art/Crosshair.png" id="2_jj876"]
 [ext_resource type="Script" path="res://Scripts/DebugScripts/pause_menu.gd" id="2_nb3st"]
 [ext_resource type="Script" path="res://Scripts/DebugScripts/fps.gd" id="3_0jf3c"]
 [ext_resource type="Script" path="res://Scripts/DebugScripts/quit.gd" id="4_5pt7r"]
@@ -12,10 +10,6 @@
 [ext_resource type="PackedScene" uid="uid://b2ma44jsl5n6t" path="res://Scenes/test_map.tscn" id="5_n0xo0"]
 [ext_resource type="Texture2D" uid="uid://dubpqbr374gsi" path="res://Art/Player.png" id="5_yeq56"]
 [ext_resource type="Texture2D" uid="uid://bx8s3w0iqjhfr" path="res://Art/Arm.png" id="6_cck4i"]
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_v573o"]
-atlas = ExtResource("2_jj876")
-region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i6nm0"]
 region = Rect2(0, 0, 32, 32)
@@ -212,12 +206,6 @@ position_smoothing_enabled = true
 script = ExtResource("1_uuyhc")
 character = NodePath("../Player")
 max_Zoom = 5.0
-
-[node name="Crosshair" type="Sprite2D" parent="."]
-position = Vector2(-94, -60)
-scale = Vector2(0.3125, 0.3125)
-texture = SubResource("AtlasTexture_v573o")
-script = ExtResource("2_7i3yh")
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(610, 467)
