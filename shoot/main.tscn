@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://butf0qqe4736v"]
+[gd_scene load_steps=43 format=3 uid="uid://butf0qqe4736v"]
 
 [ext_resource type="Script" path="res://Scripts/DebugScripts/main.gd" id="1_ufeyg"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="1_uuyhc"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://Scripts/DebugScripts/quit.gd" id="4_5pt7r"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="4_c1iqk"]
 [ext_resource type="Script" path="res://Scripts/interaction_zone.gd" id="5_mx8e5"]
+[ext_resource type="PackedScene" uid="uid://b2ma44jsl5n6t" path="res://Scenes/test_map.tscn" id="5_n0xo0"]
 [ext_resource type="Texture2D" uid="uid://dubpqbr374gsi" path="res://Art/Player.png" id="5_yeq56"]
 [ext_resource type="Texture2D" uid="uid://bx8s3w0iqjhfr" path="res://Art/Arm.png" id="6_cck4i"]
 
@@ -203,6 +204,8 @@ text = "Quit
 "
 script = ExtResource("4_5pt7r")
 
+[node name="TestMap" parent="." instance=ExtResource("5_n0xo0")]
+
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("character")]
 position = Vector2(578, 324)
 position_smoothing_enabled = true
@@ -218,6 +221,7 @@ script = ExtResource("2_7i3yh")
 
 [node name="Player" type="CharacterBody2D" parent="."]
 position = Vector2(610, 467)
+scale = Vector2(2, 2)
 script = ExtResource("4_c1iqk")
 
 [node name="Legs" type="AnimatedSprite2D" parent="Player"]
