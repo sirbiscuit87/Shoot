@@ -1,5 +1,9 @@
 extends CharacterBody2D
 
+# Multiplayer
+@onready
+var client = get_node("/root/Main/Multiplayer")
+
 #Early state implementation                                             
 var controllable: bool = true
 var in_inventory: bool = false # Player could depend on this to play inventory animations and disable certain behaviours
@@ -106,3 +110,4 @@ func manualMovement(_delta):
 			$Legs.stop()
 	
 	move_and_slide()
+	client.update_position(position)
