@@ -15,9 +15,9 @@ func _ready():
 func _on_player_connected(id: int):
 	player_id = multiplayer.get_unique_id()
 
-func update_position(position: Vector2):
+func update_position(position: Vector2, head_rotation: float, body_rotation: float):
 	if multiplayer.get_peers().has(1):
-		rpc_id(1, "server_update_player_position", player_id, position)
+		rpc_id(1, "server_update_player_position", player_id, position, head_rotation, body_rotation)
 	else:
 		print("Client not connected yet")
 
@@ -25,4 +25,4 @@ func update_position(position: Vector2):
 # yes, i agree this is retarded
 # just think of everything below this as being like a template for the server, akin to a C++ header file
 @rpc
-func server_update_player_position(player_id: int, position: Vector2): pass
+func server_update_player_position(_player_id: int, _position: Vector2, _rotation: float): pass

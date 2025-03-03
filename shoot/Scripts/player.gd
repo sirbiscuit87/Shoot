@@ -125,4 +125,4 @@ func manualMovement(_delta):
 			$Legs.stop()
 	
 	move_and_slide()
-	client.update_position(position)
+	client.update_position(position, head.rotation, body.rotation)
