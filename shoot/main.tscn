@@ -1,8 +1,12 @@
-[gd_scene load_steps=38 format=3 uid="uid://butf0qqe4736v"]
+[gd_scene load_steps=42 format=3 uid="uid://butf0qqe4736v"]
 
+[ext_resource type="Script" path="res://Scripts/DebugScripts/main.gd" id="1_ufeyg"]
 [ext_resource type="Script" path="res://Scripts/camera.gd" id="1_uuyhc"]
 [ext_resource type="Script" path="res://Scripts/crosshair.gd" id="2_7i3yh"]
 [ext_resource type="Texture2D" uid="uid://bl64rt2ugao4g" path="res://Art/Crosshair.png" id="2_jj876"]
+[ext_resource type="Script" path="res://Scripts/DebugScripts/pause_menu.gd" id="2_nb3st"]
+[ext_resource type="Script" path="res://Scripts/DebugScripts/fps.gd" id="3_0jf3c"]
+[ext_resource type="Script" path="res://Scripts/DebugScripts/quit.gd" id="4_5pt7r"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="4_c1iqk"]
 [ext_resource type="Script" path="res://Scripts/interaction_zone.gd" id="5_mx8e5"]
 [ext_resource type="Texture2D" uid="uid://dubpqbr374gsi" path="res://Art/Player.png" id="5_yeq56"]
@@ -171,8 +175,36 @@ atlas = ExtResource("5_yeq56")
 region = Rect2(64, 128, 64, 64)
 
 [node name="Main" type="Node2D"]
+script = ExtResource("1_ufeyg")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="PauseMenu" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 576.0
+offset_bottom = 324.0
+script = ExtResource("2_nb3st")
+
+[node name="FPS" type="Label" parent="UI/PauseMenu"]
+layout_mode = 0
+offset_right = 104.0
+offset_bottom = 40.0
+text = "FPS: "
+script = ExtResource("3_0jf3c")
+
+[node name="Quit" type="Button" parent="UI/PauseMenu"]
+layout_mode = 0
+offset_left = 576.0
+offset_top = 324.0
+offset_right = 618.0
+offset_bottom = 355.0
+text = "Quit
+"
+script = ExtResource("4_5pt7r")
 
 [node name="Camera" type="Camera2D" parent="." node_paths=PackedStringArray("character")]
+position = Vector2(578, 324)
 position_smoothing_enabled = true
 script = ExtResource("1_uuyhc")
 character = NodePath("../Player")
@@ -185,6 +217,7 @@ texture = SubResource("AtlasTexture_v573o")
 script = ExtResource("2_7i3yh")
 
 [node name="Player" type="CharacterBody2D" parent="."]
+position = Vector2(610, 467)
 script = ExtResource("4_c1iqk")
 
 [node name="Legs" type="AnimatedSprite2D" parent="Player"]
@@ -225,3 +258,5 @@ shape = SubResource("CircleShape2D_7ykhk")
 
 [node name="Hair" type="Sprite2D" parent="Player/Head"]
 texture = SubResource("AtlasTexture_1exby")
+
+[connection signal="button_down" from="UI/PauseMenu/Quit" to="UI/PauseMenu/Quit" method="_on_button_down"]
