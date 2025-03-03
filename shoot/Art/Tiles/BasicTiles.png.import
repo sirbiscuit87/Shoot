@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bl64rt2ugao4g"
-path="res://.godot/imported/Crosshair.png-0aeb93b5459ff95c5b6399624cd2d4b8.ctex"
+uid="uid://d1hj8jl1nu0hi"
+path="res://.godot/imported/BasicTiles.png-2f1af64478628f0833e89558a887b6c9.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://Art/Crosshair.png"
-dest_files=["res://.godot/imported/Crosshair.png-0aeb93b5459ff95c5b6399624cd2d4b8.ctex"]
+source_file="res://Art/Tiles/BasicTiles.png"
+dest_files=["res://.godot/imported/BasicTiles.png-2f1af64478628f0833e89558a887b6c9.ctex"]
 
 [params]
 
