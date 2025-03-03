@@ -2,7 +2,7 @@ extends Control
 
 # Temporary for debug
 func _ready():
-	Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+	Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 	hide()
 
 var paused: bool = false
@@ -14,5 +14,5 @@ func _process(delta: float) -> void:
 			Input.mouse_mode = Input.MOUSE_MODE_VISIBLE
 			show()
 		else:
-			Input.mouse_mode = Input.MOUSE_MODE_CONFINED_HIDDEN
+			Input.mouse_mode = Input.MOUSE_MODE_CONFINED
 			hide()

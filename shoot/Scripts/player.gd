@@ -33,17 +33,32 @@ func _ready():
 func _process(delta):
 	if(controllable):
 		manualMovement(delta)
+		face_cursor()
+
+func face_cursor():
+	var point = (get_global_mouse_position() - global_position).angle()
+	head.rotation = point + PI/2
+	
+	if Input.is_action_just_pressed("aim"):
+		aim_offset = PI/4
+	if Input.is_action_just_released("aim"):
+		aim_offset = 0
 		
-		#if !game_ref.player_inventory.in_inventory: artifact
-		face(crosshair)
+	if aim_offset:
+		head.offset.x = 1
+		hair.offset.x = 1
+		body.rotation = lerp_angle(body.rotation, head.rotation + aim_offset, 0.1)
+	else:
+		head.offset.x = 0
+		hair.offset.x = 0
+		body.rotation = lerp_angle(body.rotation, head.rotation, 0.1)
+	
+	$Legs.rotation = head.rotation
 
-var body_turning: bool = false
-
+# Turn to face an object, currently unused
 var aim_offset = 0
 func face(object):
-	
 	var point = (object.position - position).angle()
-	
 	head.rotation = point + PI/2
 	
 	if Input.is_action_just_pressed("aim"):
