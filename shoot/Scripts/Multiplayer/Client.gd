@@ -1,9 +1,12 @@
 extends Node
+var Utils = load("res://Scripts/utils/Utils.gd")
+var PlayerActor = load("res://Scripts/Multiplayer/PlayerActor.gd")
 
 const SERVER_IP_ADDRESS = "127.0.0.1"
 const PORT = 32169
 
 var player_id
+var players = {}
 
 func _ready():
 	var client = ENetMultiplayerPeer.new()
@@ -20,6 +23,12 @@ func update_position(position: Vector2, head_rotation: float, body_rotation: flo
 		rpc_id(1, "server_update_player_position", player_id, position, head_rotation, body_rotation)
 	else:
 		print("Client not connected yet")
+
+@rpc
+func client_update_player_position(player: Dictionary):
+	var player_actor = PlayerActor.new()
+	Utils.dict_to_obj(player_actor, player)
+	players[player_actor.peer_id] = player_actor
 
 # yes, you need to have the function defined in both the client and the server
 # yes, i agree this is retarded
