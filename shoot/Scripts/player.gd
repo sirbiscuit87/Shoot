@@ -2,7 +2,7 @@ extends CharacterBody2D
 
 # Multiplayer
 @onready
-var client = get_node("/root/Main/Multiplayer")
+var multiplayer_manager = get_node("/root/Main/Multiplayer")
 
 #Early state implementation                                             
 var controllable: bool = true
@@ -23,6 +23,7 @@ var body
 var head
 var hair
 var crosshair
+var peer_authority_id: int
 
 # HARDREF 
 func _ready():
@@ -35,7 +36,7 @@ func _ready():
 
 
 func _process(delta):
-	if(controllable):
+	if(controllable) and is_multiplayer_authority():
 		manualMovement(delta)
 		face_cursor()
 
@@ -125,4 +126,4 @@ func manualMovement(_delta):
 			$Legs.stop()
 	
 	move_and_slide()
-	client.update_position(position, head.rotation, body.rotation)
+	multiplayer_manager.update_position(position, head.rotation, body.rotation)
