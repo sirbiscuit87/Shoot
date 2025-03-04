@@ -11,4 +11,3 @@ static func obj_to_dict(obj: Object) -> Dictionary:
 static func dict_to_obj(obj: Object, dict: Dictionary):
     for key in dict.keys():
         obj[key] = dict[key]
-    return obj
