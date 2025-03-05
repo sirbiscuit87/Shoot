@@ -1,15 +1,31 @@
-[gd_scene load_steps=40 format=3 uid="uid://butf0qqe4736v"]
+[gd_scene load_steps=46 format=3 uid="uid://butf0qqe4736v"]
 
 [ext_resource type="Script" path="res://Scripts/DebugScripts/main.gd" id="1_ufeyg"]
-[ext_resource type="Script" path="res://Scripts/camera.gd" id="1_uuyhc"]
+[ext_resource type="Script" path="res://Scenes/camera.gd" id="1_uuyhc"]
 [ext_resource type="Script" path="res://Scripts/DebugScripts/pause_menu.gd" id="2_nb3st"]
 [ext_resource type="Script" path="res://Scripts/DebugScripts/fps.gd" id="3_0jf3c"]
+[ext_resource type="FontFile" uid="uid://dwuxnsj34k5cq" path="res://Art/Fonts/MedodicaRegular.otf" id="3_gnmar"]
+[ext_resource type="Script" path="res://Scripts/UI/ammo.gd" id="3_p2bsf"]
 [ext_resource type="Script" path="res://Scripts/DebugScripts/quit.gd" id="4_5pt7r"]
 [ext_resource type="Script" path="res://Scripts/player.gd" id="4_c1iqk"]
 [ext_resource type="Script" path="res://Scripts/interaction_zone.gd" id="5_mx8e5"]
 [ext_resource type="PackedScene" uid="uid://b2ma44jsl5n6t" path="res://Scenes/test_map.tscn" id="5_n0xo0"]
 [ext_resource type="Texture2D" uid="uid://dubpqbr374gsi" path="res://Art/Player.png" id="5_yeq56"]
 [ext_resource type="Texture2D" uid="uid://bx8s3w0iqjhfr" path="res://Art/Arm.png" id="6_cck4i"]
+[ext_resource type="Script" path="res://Scripts/UI/hud.gd" id="6_qjj6w"]
+[ext_resource type="Texture2D" uid="uid://bqat2setb5yuc" path="res://Art/UI/RifleFireMode.png" id="7_npfbx"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_kj41y"]
+font_size = 46
+outline_size = 10
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 8
+shadow_color = Color(0, 0, 0, 0.517647)
+shadow_offset = Vector2(3.715, 3.085)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ttft0"]
+atlas = ExtResource("7_npfbx")
+region = Rect2(0, 0, 64, 64)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i6nm0"]
 region = Rect2(0, 0, 32, 32)
@@ -174,6 +190,32 @@ script = ExtResource("1_ufeyg")
 
 [node name="UI" type="CanvasLayer" parent="."]
 
+[node name="HUD" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1152.0
+offset_bottom = 648.0
+script = ExtResource("6_qjj6w")
+
+[node name="Ammo" type="Label" parent="UI/HUD"]
+layout_mode = 0
+offset_left = 1002.0
+offset_top = 563.0
+offset_right = 1131.0
+offset_bottom = 631.0
+text = "
+"
+label_settings = SubResource("LabelSettings_kj41y")
+script = ExtResource("3_p2bsf")
+
+[node name="FireModeImage" type="TextureRect" parent="UI/HUD/Ammo"]
+layout_mode = 0
+offset_left = -81.0
+offset_top = -2.0
+offset_right = -6.0
+offset_bottom = 73.0
+texture = SubResource("AtlasTexture_ttft0")
+
 [node name="PauseMenu" type="Control" parent="UI"]
 layout_mode = 3
 anchors_preset = 0
@@ -185,6 +227,7 @@ script = ExtResource("2_nb3st")
 layout_mode = 0
 offset_right = 104.0
 offset_bottom = 40.0
+theme_override_fonts/font = ExtResource("3_gnmar")
 text = "FPS: "
 script = ExtResource("3_0jf3c")
 
@@ -194,6 +237,7 @@ offset_left = 576.0
 offset_top = 324.0
 offset_right = 618.0
 offset_bottom = 355.0
+theme_override_fonts/font = ExtResource("3_gnmar")
 text = "Quit
 "
 script = ExtResource("4_5pt7r")
@@ -252,3 +296,4 @@ shape = SubResource("CircleShape2D_7ykhk")
 texture = SubResource("AtlasTexture_1exby")
 
 [connection signal="button_down" from="UI/PauseMenu/Quit" to="UI/PauseMenu/Quit" method="_on_button_down"]
+[connection signal="PickedUpGun" from="Player" to="UI/HUD" method="_on_player_picked_up_gun"]

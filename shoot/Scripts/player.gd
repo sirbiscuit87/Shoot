@@ -1,40 +1,38 @@
 extends CharacterBody2D
 
-#Early state implementation                                             
-var controllable: bool = true
-var in_inventory: bool = false # Player could depend on this to play inventory animations and disable certain behaviours
 
+# -- Old Code, needs review -- ##
 #Manual control variables (movement and viewdistance) 
 @export var view_distance = 300
-@export var movementState = 1
+var movementState = 1
 
-#Const min speed max speed
-const speeds = [0.8, 1, 1.8]
+# Crouch speed, normal speed, sprint speed
+@export var speeds = [1.2, 1.6, 2.4]
+# ----------------------------- #
 
-# Game ref to access inventory in separate canvas layer
-@onready var game_ref = $"../.."
 
 #Child references to prevent node searching
 var body
 var head
 var hair
-var crosshair
 
-# HARDREF 
+
+var gun: Gun = null
 func _ready():
-	crosshair = $"../Crosshair"
 	body = $Body
 	head = $Head
-	hair = $Head/Hair # since offset can't inherit?
-
-#Misc
-
+	hair = $Head/Hair
+	
+	# -- New logic binding character to HUD --
+	GiveWeapon(Gun.new())
+	
 
 func _process(delta):
-	if(controllable):
-		manualMovement(delta)
-		face_cursor()
+	manualMovement(delta)
+	face_cursor()
 
+# ------- Movement ----- ##
+var aim_offset = 0
 func face_cursor():
 	var point = (get_global_mouse_position() - global_position).angle()
 	head.rotation = point + PI/2
@@ -44,28 +42,6 @@ func face_cursor():
 	if Input.is_action_just_released("aim"):
 		aim_offset = 0
 		
-	if aim_offset:
-		head.offset.x = 1
-		hair.offset.x = 1
-		body.rotation = lerp_angle(body.rotation, head.rotation + aim_offset, 0.1)
-	else:
-		head.offset.x = 0
-		hair.offset.x = 0
-		body.rotation = lerp_angle(body.rotation, head.rotation, 0.1)
-	
-	$Legs.rotation = head.rotation
-
-# Turn to face an object, currently unused
-var aim_offset = 0
-func face(object):
-	var point = (object.position - position).angle()
-	head.rotation = point + PI/2
-	
-	if Input.is_action_just_pressed("aim"):
-		aim_offset = PI/4
-	if Input.is_action_just_released("aim"):
-		aim_offset = 0
-
 	if aim_offset:
 		head.offset.x = 1
 		hair.offset.x = 1
@@ -121,3 +97,19 @@ func manualMovement(_delta):
 			$Legs.stop()
 	
 	move_and_slide()
+
+## ------------------ ##
+
+
+# The player script here has several signals connected to HUD. Marcus, lmk if this causes problems. I think it will. 
+# Interface for giving a player a weapon. Adds Gun object to character. Signals to HUD.
+signal PickedUpGun(gun: Gun)
+
+func GiveWeapon(newgun: Gun) -> void:
+	if self.gun != null:
+		# TODO gun replacement logic, drop on floor?
+		pass
+		
+	self.gun = newgun
+	add_child(newgun)
+	PickedUpGun.emit(newgun)
