@@ -14,12 +14,20 @@ var MaxAmmo: int = 30
 var FireRate: int = 600 # RPM
 var FireDelay: float = 0.1 # Delay between shots in seconds
 var CanFire: bool = true # FireRate Locking
+var ReloadTime: int = 2 # In seconds
 
 # Not implemented
 var Spread: int # Aim cone in degrees
 
 var MouseHeld: bool = false
 func _process(delta: float) -> void:
+	if Input.is_action_just_pressed("reload"):
+		CanFire = false
+		await get_tree().create_timer(ReloadTime).timeout
+		Ammo = MaxAmmo
+		emit_signal("AmmoChanged")
+		CanFire = true
+		
 	if Input.is_action_just_pressed("switch_fire_mode"):
 		FireMode = (FireMode + 1) % FiringModesCount
 		print(FireMode)
