@@ -16,6 +16,7 @@
 [ext_resource type="Texture2D" uid="uid://bqat2setb5yuc" path="res://Art/UI/RifleFireMode.png" id="7_npfbx"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_kj41y"]
+font = ExtResource("3_gnmar")
 font_size = 46
 outline_size = 10
 outline_color = Color(0, 0, 0, 1)
@@ -203,17 +204,16 @@ offset_left = 1002.0
 offset_top = 563.0
 offset_right = 1131.0
 offset_bottom = 631.0
-text = "
-"
+text = "fgg"
 label_settings = SubResource("LabelSettings_kj41y")
 script = ExtResource("3_p2bsf")
 
 [node name="FireModeImage" type="TextureRect" parent="UI/HUD/Ammo"]
 layout_mode = 0
-offset_left = -81.0
-offset_top = -2.0
-offset_right = -6.0
-offset_bottom = 73.0
+offset_left = -79.0
+offset_top = -13.0
+offset_right = -4.0
+offset_bottom = 62.0
 texture = SubResource("AtlasTexture_ttft0")
 
 [node name="PauseMenu" type="Control" parent="UI"]
