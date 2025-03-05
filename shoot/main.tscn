@@ -204,7 +204,6 @@ offset_left = 1002.0
 offset_top = 563.0
 offset_right = 1131.0
 offset_bottom = 631.0
-text = "fgg"
 label_settings = SubResource("LabelSettings_kj41y")
 script = ExtResource("3_p2bsf")
 
