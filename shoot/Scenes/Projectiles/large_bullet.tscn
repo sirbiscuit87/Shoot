@@ -1,0 +1,79 @@
+[gd_scene load_steps=11 format=3 uid="uid://bv2w4vkrnrukk"]
+
+[ext_resource type="Texture2D" uid="uid://doxbagxsx1o5j" path="res://Art/Weapons/LargeBullet.png" id="1_faak7"]
+[ext_resource type="Script" path="res://large_bullet.gd" id="2_wptr3"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_83ir3"]
+atlas = ExtResource("1_faak7")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5pgto"]
+atlas = ExtResource("1_faak7")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ej3mi"]
+atlas = ExtResource("1_faak7")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cl544"]
+atlas = ExtResource("1_faak7")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dbueu"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_83ir3")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5pgto")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ej3mi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cl544")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="Gradient" id="Gradient_acrkv"]
+colors = PackedColorArray(1, 1, 1, 1, 0, 0, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_elurb"]
+gradient = SubResource("Gradient_acrkv")
+width = 200
+height = 200
+fill = 1
+fill_from = Vector2(0.504587, 0.449541)
+fill_to = Vector2(0.793578, 0.183486)
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_i3q5o"]
+radius = 3.0
+height = 10.0
+
+[node name="LargeBullet" type="AnimatedSprite2D"]
+scale = Vector2(2, 2)
+sprite_frames = SubResource("SpriteFrames_dbueu")
+frame_progress = 0.377897
+speed_scale = 4.0
+script = ExtResource("2_wptr3")
+
+[node name="Light" type="PointLight2D" parent="."]
+position = Vector2(-4.5, -0.5)
+scale = Vector2(0.104063, 0.0275)
+color = Color(1, 0.176471, 0.0470588, 1)
+energy = 0.25
+shadow_color = Color(0, 0, 0, 0.513726)
+texture = SubResource("GradientTexture2D_elurb")
+
+[node name="Collider" type="Area2D" parent="."]
+priority = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collider"]
+rotation = 1.5708
+shape = SubResource("CapsuleShape2D_i3q5o")
+
+[connection signal="body_entered" from="Collider" to="." method="_on_collider_body_entered"]

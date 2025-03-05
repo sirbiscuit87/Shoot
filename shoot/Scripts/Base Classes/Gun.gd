@@ -59,7 +59,7 @@ func SingleFire():
 		
 	if Ammo > 0:
 		Ammo -= 1
-		print("Shoot")
+		Shoot()
 		CanFire = false
 		emit_signal("AmmoChanged")
 		await get_tree().create_timer(FireDelay).timeout
@@ -74,8 +74,19 @@ func AutoFire():
 	
 	if Ammo > 0:
 		Ammo -= 1
-		print("Shoot")
+		Shoot()
 		CanFire = false
 		emit_signal("AmmoChanged")
 		await get_tree().create_timer(FireDelay).timeout
 		CanFire = true
+
+# Overridden by subclasses. IE shotgun spread, sniper w/ tracers, whatever. 
+var large_bullet = preload("res://Scenes/Projectiles/large_bullet.tscn")
+func Shoot():
+	var proj = large_bullet.instantiate()
+	proj.global_position = global_position
+	var point = get_global_mouse_position() - global_position
+	proj.setup(get_parent(), point) # Player (parent) is passed as the source of the bullet (so shooter wont hit itself)
+	get_tree().get_root().add_child(proj) # Cant be a child of gun or it will move with the gun
+	
+	
