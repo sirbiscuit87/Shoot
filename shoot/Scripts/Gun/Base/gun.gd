@@ -4,22 +4,42 @@ class_name Gun
 # Base class for all future guns. Default values set to resemble an AK, for testing.
 enum Caliber {SMALL, RIFLE, SHOTGUN}
 enum FiringMode {SINGLE, AUTO, BURST}
-var firing_mode_count: int = 2 
+var firing_mode_count: int
 var bullet_type : Bullet
-var caliber: Caliber = Caliber.RIFLE
-var fire_mode: FiringMode = FiringMode.SINGLE
+var caliber: Caliber
+var fire_mode: FiringMode
 var burst_size: int
-var ammo: int = 30
-var max_ammo: int = 30
-var fire_rate: int = 600 # RPM
-var fire_delay: float = 0.1 # Delay between shots in seconds
+var ammo: int
+var max_ammo: int
+var fire_rate: int # RPM
+var fire_delay: float # Delay between shots in seconds
+var reload_time: int # In seconds
+
 var can_fire: bool = true # FireRate Locking
-var reload_time: int = 2 # In seconds
 
 # Not implemented
 var spread: int # Aim cone in degrees
-func _init(_bullet_type: Bullet) -> void:
+func _init(
+	_firing_mode_count: int,
+	_bullet_type : Bullet,
+	_caliber: Caliber,
+	_fire_mode: FiringMode,
+	_ammo: int,
+	_max_ammo: int,
+	_fire_rate: int,
+	_fire_delay: float,
+	_reload_time: int
+
+) -> void:
+	firing_mode_count = _firing_mode_count
 	bullet_type = _bullet_type
+	caliber = _caliber
+	fire_mode = _fire_mode
+	ammo = _ammo
+	max_ammo = _max_ammo
+	fire_rate = _fire_rate
+	fire_delay = _fire_delay
+	reload_time = _reload_time
 
 var mouse_held: bool = false
 func _process(_delta: float) -> void:
