@@ -254,6 +254,8 @@ max_Zoom = 5.0
 position = Vector2(610, 467)
 scale = Vector2(2, 2)
 script = ExtResource("4_c1iqk")
+view_distance = null
+speeds = null
 
 [node name="Legs" type="AnimatedSprite2D" parent="Player"]
 sprite_frames = SubResource("SpriteFrames_yewj6")

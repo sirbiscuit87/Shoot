@@ -1,5 +1,5 @@
 extends CharacterBody2D
-
+const ShitGun = preload("res://Scripts/Gun/Guns/shit_gun.gd")
 
 # -- Old Code, needs review -- ##
 #Manual control variables (movement and viewdistance) 
@@ -7,7 +7,7 @@ extends CharacterBody2D
 var movementState = 1
 
 # Crouch speed, normal speed, sprint speed
-@export var speeds = [1.2, 1.6, 2.4]
+@export var speeds: Array[float]
 # ----------------------------- #
 
 
@@ -22,9 +22,10 @@ func _ready():
 	body = $Body
 	head = $Head
 	hair = $Head/Hair
+	speeds = [1.2, 1.6, 2.4]
 	
 	# -- New logic binding character to HUD --
-	GiveWeapon(Gun.new())
+	GiveWeapon(ShitGun.new())
 	
 
 func _process(delta):
