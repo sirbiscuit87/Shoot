@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://bv2w4vkrnrukk"]
 
 [ext_resource type="Texture2D" uid="uid://doxbagxsx1o5j" path="res://Art/Weapons/LargeBullet.png" id="1_faak7"]
-[ext_resource type="Script" path="res://Scripts/large_bullet.gd" id="2_vx23s"]
+[ext_resource type="Script" path="res://Scripts/bullet.gd" id="2_jglq2"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_83ir3"]
 atlas = ExtResource("1_faak7")
@@ -59,7 +59,7 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_dbueu")
 frame_progress = 0.377897
 speed_scale = 4.0
-script = ExtResource("2_vx23s")
+script = ExtResource("2_jglq2")
 
 [node name="Light" type="PointLight2D" parent="."]
 position = Vector2(-4.5, -0.5)
