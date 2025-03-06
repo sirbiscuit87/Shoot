@@ -1,7 +1,7 @@
 [gd_scene load_steps=11 format=3 uid="uid://dawm4usu8don"]
 
 [ext_resource type="Texture2D" uid="uid://di1bvk3exjhjd" path="res://Art/Weapons/SmallBullet.png" id="1_qlv0r"]
-[ext_resource type="Script" path="res://Scripts/bullet.gd" id="2_6eyor"]
+[ext_resource type="Script" path="res://Scripts/Gun/Bullets/small_bullet.gd" id="2_aog4u"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_5pdon"]
 atlas = ExtResource("1_qlv0r")
@@ -59,7 +59,7 @@ scale = Vector2(2, 2)
 sprite_frames = SubResource("SpriteFrames_fso5v")
 frame_progress = 0.588509
 speed_scale = 4.0
-script = ExtResource("2_6eyor")
+script = ExtResource("2_aog4u")
 
 [node name="Light" type="PointLight2D" parent="."]
 position = Vector2(-4.5, -0.5)

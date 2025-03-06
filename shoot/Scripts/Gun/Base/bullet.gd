@@ -1,17 +1,21 @@
 extends AnimatedSprite2D
+class_name Bullet
 
 var direction: Vector2
 var velocity: float # Pixels per physics tick (60 per second). Values too high may result in clipping issues. 
 var source_node: Node2D # Source of bullet so player doesnt shoot themselves when bullet spawns
 
 # A bullet scene must be instantiated with an initial direction vector. Usually where the mouse points.
-func _init(_source_node: Node2D, _direction: Vector2, _velocity = 50):
-	source_node = _source_node
-	rotation = _direction.angle()
-	direction = _direction.normalized()
-	velocity = _velocity
-	$Light.energy = randf()
-	
+static func create_new_bullet(scene: PackedScene, _source_node: Node2D, _direction: Vector2, _velocity = 50) -> Bullet:
+	var new_bullet = scene.instantiate()
+	new_bullet.source_node = _source_node
+	new_bullet.rotation = _direction.angle()
+	new_bullet.direction = _direction.normalized()
+	new_bullet.velocity = _velocity
+	var light = new_bullet.get_node("Light")
+	light.energy = randf()
+	return new_bullet
+
 func _physics_process(_delta: float) -> void:
 	position += direction * velocity
 

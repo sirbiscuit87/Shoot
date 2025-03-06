@@ -1,4 +1,5 @@
 extends Label
+const Gun = preload("res://Scripts/Gun/Base/gun.gd")
 
 func _ready() -> void:
 	hide()
@@ -12,8 +13,8 @@ func initialize(gun: Gun):
 	self.gun = gun
 	
 	# Signal connections
-	gun.AmmoChanged.connect(AmmoChanged)
-	gun.FireModeChanged.connect(FireModeChanged)
+	gun.ammo_changed.connect(AmmoChanged)
+	gun.fire_mode_changed.connect(FireModeChanged)
 	
 	AmmoChanged() # To display ammo on gun pickup
 	FireModeChanged() # To display fire mode on gun pickup
@@ -21,7 +22,7 @@ func initialize(gun: Gun):
 	show()
 
 func AmmoChanged():
-	self.text = str(gun.Ammo) + "/" + str(gun.MaxAmmo)
+	self.text = str(gun.ammo) + "/" + str(gun.max_ammo)
 
 func FireModeChanged():
 	# Must keep these consistent for all atlases for all calibers!
@@ -31,7 +32,7 @@ func FireModeChanged():
 	
 	
 	var region
-	match gun.FireMode:
+	match gun.fire_mode:
 		0: # Single fire
 			region = Rect2(0,0,64,64)
 		1: # Auto fire
@@ -39,7 +40,7 @@ func FireModeChanged():
 		2: # Burst fire
 			region = Rect2(64,0,64,64)
 	
-	match gun.Caliber:
+	match gun.caliber:
 		0: # Small caliber
 			var picRef = $FireModeImage
 			picRef.texture = AtlasTexture.new()

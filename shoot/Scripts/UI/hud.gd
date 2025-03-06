@@ -1,4 +1,5 @@
 extends Control
+const Gun = preload("res://Scripts/Gun/Base/gun.gd")
 
 # All signals from the player are sent here to be managed. Appropriate calls will be propogated down.
 func _on_player_picked_up_gun(gun: Gun) -> void:

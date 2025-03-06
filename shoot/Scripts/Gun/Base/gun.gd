@@ -1,10 +1,16 @@
 extends Node2D
+class_name Gun
+const BulletType = preload("res://Scripts/Gun/Base/bullet_type.gd").BulletType
+const LargeBulletScene = preload("res://Scenes/Projectiles/large_bullet.tscn")
+const LargeBullet = preload("res://Scripts/Gun/Bullets/large_bullet.gd")
+const SmallBulletScene = preload("res://Scenes/Projectiles/small_bullet.tscn")
+const SmallBullet = preload("res://Scripts/Gun/Bullets/small_bullet.gd")
 
 # Base class for all future guns. Default values set to resemble an AK, for testing.
 enum Caliber {SMALL, RIFLE, SHOTGUN}
 enum FiringMode {SINGLE, AUTO, BURST}
 var firing_mode_count: int = 2 
-var bullet_type 
+var bullet_type : BulletType
 var caliber: Caliber = Caliber.RIFLE
 var fire_mode: FiringMode = FiringMode.SINGLE
 var burst_size: int
@@ -17,6 +23,8 @@ var reload_time: int = 2 # In seconds
 
 # Not implemented
 var spread: int # Aim cone in degrees
+func _init(_bullet_type: BulletType) -> void:
+	bullet_type = _bullet_type
 
 var mouse_held: bool = false
 func _process(delta: float) -> void:
@@ -79,13 +87,20 @@ func AutoFire():
 		await get_tree().create_timer(fire_delay).timeout
 		can_fire = true
 
-# Overridden by subclasses. IE shotgun spread, sniper w/ tracers, whatever. 
-var bullet = preload("res://Scenes/Projectiles/large_bullet.tscn")
-func Shoot():
-	var proj = bullet.instantiate()
-	proj.global_position = global_position
+func _get_bullet() -> Bullet:
+	var parent = get_parent()
 	var point = get_global_mouse_position() - global_position
-	proj.setup(get_parent(), point) # Player (parent) is passed as the source of the bullet (so shooter wont hit itself)
-	get_tree().get_root().add_child(proj) # Cant be a child of gun or it will move with the gun
+	var bullet: Bullet
+	match bullet_type:
+		BulletType.LARGE:
+			bullet = LargeBullet.create(LargeBulletScene, parent, point)
+		BulletType.SMALL:
+			bullet = SmallBullet.create(SmallBulletScene, parent, point)
+	bullet.global_position = global_position
+	return bullet
+
+func Shoot():
+	var bullet = _get_bullet()
+	get_tree().get_root().add_child(bullet) # Cant be a child of gun or it will move with the gun
 	
 	
