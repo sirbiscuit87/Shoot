@@ -1,5 +1,4 @@
 extends CharacterBody2D
-const Gun = preload("res://Scripts/Gun/Base/gun.gd")
 const ShitGun = preload("res://Scripts/Gun/Guns/shit_gun.gd")
 
 # -- Old Code, needs review -- ##

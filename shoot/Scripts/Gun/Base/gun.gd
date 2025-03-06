@@ -22,7 +22,7 @@ func _init(_bullet_type: Bullet) -> void:
 	bullet_type = _bullet_type
 
 var mouse_held: bool = false
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("reload"):
 		can_fire = false
 		await get_tree().create_timer(reload_time).timeout
