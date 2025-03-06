@@ -1,5 +1,0 @@
-
-enum BulletType {
-    SMALL,
-    LARGE
-}
