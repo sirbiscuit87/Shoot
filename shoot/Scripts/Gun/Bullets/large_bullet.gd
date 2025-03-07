@@ -1,4 +1,4 @@
-extends "res://Scripts/Gun/Base/bullet.gd"
+extends Bullet
 
 static func _static_init() -> void:
 	scene = preload("res://Scenes/Projectiles/large_bullet.tscn")
