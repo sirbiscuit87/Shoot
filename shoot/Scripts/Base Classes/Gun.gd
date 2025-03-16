@@ -6,18 +6,36 @@ enum CALIBERS {Small, Rifle, Shotgun}
 enum FIRING_MODES {Single, Auto, Burst}
 var FiringModesCount: int = 2 
 
-var Caliber: int = CALIBERS.Rifle
-var FireMode: int = FIRING_MODES.Single
-var BurstSize: int
+@export_enum("Small", "Rifle", "Shotgun") var Caliber: int = CALIBERS.Rifle
+@export_enum("Single", "Auto", "Burst") var FireMode: int = FIRING_MODES.Single
+var BurstSize: int # TODO: implement burst properly
 var Ammo: int = 30
-var MaxAmmo: int = 30
-var FireRate: int = 600 # RPM
+@export var MaxAmmo: int = 30
+@export var FireRate: float = 600 # RPM
 var FireDelay: float = 0.1 # Delay between shots in seconds
 var CanFire: bool = true # FireRate Locking
-var ReloadTime: int = 2 # In seconds
+@export var ReloadTime: float = 2 # In seconds
 
 # Not implemented
 var Spread: int # Aim cone in degrees
+
+var projectile_scene
+func _ready() -> void:
+	# Setup for a gun involves loading of proper assets
+	match Caliber:
+		CALIBERS.Small:
+			projectile_scene = load("res://Scenes/Projectiles/small_bullet.tscn")
+		CALIBERS.Rifle:
+			projectile_scene = load("res://Scenes/Projectiles/large_bullet.tscn")
+		CALIBERS.Shotgun:
+			# TODO
+			pass
+			
+	# RPM conversion
+	FireDelay = 1 / (FireRate / 60)
+	
+	# Set ammo to full by default
+	Ammo = MaxAmmo
 
 var MouseHeld: bool = false
 func _process(delta: float) -> void:
@@ -81,9 +99,8 @@ func AutoFire():
 		CanFire = true
 
 # Overridden by subclasses. IE shotgun spread, sniper w/ tracers, whatever. 
-var large_bullet = preload("res://Scenes/Projectiles/large_bullet.tscn")
 func Shoot():
-	var proj = large_bullet.instantiate()
+	var proj = projectile_scene.instantiate()
 	proj.global_position = global_position
 	var point = get_global_mouse_position() - global_position
 	proj.setup(get_parent(), point) # Player (parent) is passed as the source of the bullet (so shooter wont hit itself)

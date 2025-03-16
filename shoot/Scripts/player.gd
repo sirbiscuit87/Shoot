@@ -24,7 +24,7 @@ func _ready():
 	hair = $Head/Hair
 	
 	# -- New logic binding character to HUD --
-	GiveWeapon(Gun.new())
+	#GiveWeapon(Gun.new())
 	
 
 func _process(delta):
@@ -104,10 +104,13 @@ func manualMovement(_delta):
 # The player script here has several signals connected to HUD. Marcus, lmk if this causes problems. I think it will. 
 # Interface for giving a player a weapon. Adds Gun object to character. Signals to HUD.
 signal PickedUpGun(gun: Gun)
+signal LostGun # Temporary, will eventually convert this to work with the gun dropping on the floor
 
 func GiveWeapon(newgun: Gun) -> void:
 	if self.gun != null:
 		# TODO gun replacement logic, drop on floor?
+		LostGun.emit()
+		self.gun.queue_free()
 		pass
 		
 	self.gun = newgun

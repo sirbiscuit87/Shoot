@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://dlns1g2156dco"]
+
+[ext_resource type="Script" path="res://Scripts/Guns/ak.gd" id="1_05ppn"]
+[ext_resource type="Texture2D" uid="uid://cs66137mgyyya" path="res://Art/Weapons/AK.png" id="2_i4iut"]
+
+[node name="AK" type="Node2D"]
+script = ExtResource("1_05ppn")
+
+[node name="FloorTexture" type="Sprite2D" parent="."]
+position = Vector2(0, 47)
+texture = ExtResource("2_i4iut")
+
+[node name="HeldTexture" type="Sprite2D" parent="."]
+visible = false

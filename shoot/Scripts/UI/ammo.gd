@@ -20,6 +20,16 @@ func initialize(gun: Gun):
 	
 	show()
 
+# Disconnects all current signals from the gun
+func disconnect_gun():
+	self.gun.AmmoChanged.disconnect(AmmoChanged)
+	self.gun.FireModeChanged.disconnect(FireModeChanged)
+	
+	hide()
+	
+	self.gun = null
+	
+
 func AmmoChanged():
 	self.text = str(gun.Ammo) + "/" + str(gun.MaxAmmo)
 

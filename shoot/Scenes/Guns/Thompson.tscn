@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://ca62cl200xikj"]
+
+[ext_resource type="Script" path="res://Scripts/Guns/thompson.gd" id="1_mi3nd"]
+[ext_resource type="Texture2D" uid="uid://bxvpnr23oho44" path="res://Art/Weapons/Thompson.png" id="2_cbglr"]
+
+[node name="Thompson" type="Node2D"]
+script = ExtResource("1_mi3nd")
+Caliber = 0
+MaxAmmo = 20
+ReloadTime = 1.6
+
+[node name="FloorTexture" type="Sprite2D" parent="."]
+position = Vector2(0, 53)
+texture = ExtResource("2_cbglr")
+
+[node name="HeldTexture" type="Sprite2D" parent="."]
+visible = false
